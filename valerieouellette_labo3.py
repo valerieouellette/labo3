@@ -1,12 +1,12 @@
 class Repas:
     def __init__(self) -> None:
-        self.liste_recettes = []
-        self.duree_preparation = 0
+        self.liste_recette = []
         self.recette()
     
     def recette(self):
         pass
-    
+
+
 class Dejeuner(Repas):
     def __init__(self) -> None:
         super().__init__()
@@ -48,191 +48,163 @@ class Oeufs(Dejeuner):
         super().__init__()
     
     def recette(self):
-        etapes = {}
-        etapes[1] = ("Faire cuire les oeufs", 4)
-        etapes[2] = ("Réchauffer les pommes de terre", 2)
-        etapes[3] = ("Couper les fruits", 2)
-        self.liste_recettes.append(etapes)
+        self.liste_recette.append("Faire cuire les oeufs", 4)
+        self.liste_recette.append("Réchauffer les pommes de terre", 2)
+        self.liste_recette.append("Couper les fruits", 2)
 
 class PainDore(Dejeuner):
     def __init__(self) -> None:
         super().__init__()
     
     def recette(self):
-        etapes = {}
-        etapes[1] = ("Tremper le pain dans le mélange", 1)
-        etapes[2] = ("Faire cuire dans la poèle", 4)
-        etapes[3] = ("Couper les fruits", 2)
-        Repas().liste_recettes.append(etapes)
+        self.liste_recette.append("Tremper le pain dans le mélange", 1)
+        self.liste_recette.append("Faire cuire dans la poèle", 4)
+        self.liste_recette.append("Couper les fruits", 2)
         
 class Crepes(Dejeuner):
     def __init__(self) -> None:
         self.__init__()
     
     def recette(self):
-        etapes = {}
-        etapes[1] = ("Battre le mélange", 1)
-        etapes[2] = ("Faire cuire dans la poèle", 5)
-        etapes[3] = ("Couper les fruits", 2)
-        self.liste_recettes.append(etapes)
+        self.liste_recette.append("Battre le mélange", 1)
+        self.liste_recette.append("Faire cuire dans la poèle", 5)
+        self.liste_recette.append("Couper les fruits", 2)
 
 class CroquettePoulet(Diner):
     def __init__(self) -> None:
         super().__init__()
     
     def recette(self):
-        etapes = {}
-        etapes[1] = ("Mettre les morceaux de poulet dans la chapelure", 2)
-        etapes[2] = ("Faire frire le poulet", 5)
-        etapes[3] = ("Réchauffer les pommes de terres", 2)
-        self.liste_recettes.append(etapes)
+        self.liste_recette.append("Mettre les morceaux de poulet dans la chapelure", 2)
+        self.liste_recette.append("Faire frire le poulet", 5)
+        self.liste_recette.append("Réchauffer les pommes de terres", 2)
 
 class SandwichThon(Diner):
     def __init__(self) -> None:
         super().__init__()
     
     def recette(self):
-        etapes = {}
-        etapes[1] = ("Mettre le pain au four", 3)
-        etapes[2] = ("Tartiner le pain", 1)
-        etapes[3] = ("Servir la salade", 1)
-        self.liste_recettes.append(etapes)
+        self.liste_recette.append("Mettre le pain au four", 3)
+        self.liste_recette.append("Tartiner le pain", 1)
+        self.liste_recette.append("Servir la salade", 1)
 
 class Macaronis(Diner):
     def __init__(self) -> None:
         super().__init__()
     
     def recette(self):
-        etapes = {}
-        etapes[1] = ("Faire bouillir l'eau", 3)
-        etapes[2] = ("Faire cuire les macaronis", 7)
-        etapes[3] = ("Réchauffer la sauce", 2)
-        self.liste_recettes.append(etapes)
+        self.liste_recette.append("Faire bouillir l'eau", 3)
+        self.liste_recette.append("Faire cuire les macaronis", 7)
+        self.liste_recette.append("Réchauffer la sauce", 2)
 
 class Saumon(Souper):
     def __init__(self) -> None:
         super().__init__()
     
     def recette(self):
-        etapes = {}
-        etapes[1] = ("Faire chauffer l'huile dans la poèle", 1)
-        etapes[2] = ("Faire cuire le saumon", 5)
-        etapes[3] = ("Réchauffer le riz", 2)
-        self.liste_recettes.append(etapes)
+        self.liste_recette.append("Faire chauffer l'huile dans la poèle", 1)
+        self.liste_recette.append("Faire cuire le saumon", 5)
+        self.liste_recette.append("Réchauffer le riz", 2)
 
 class PitaFalafel(Souper):
     def __init__(self) -> None:
         super().__init__()
     
     def recette(self):
-        etapes = {}
-        etapes[1] = ("Faire frire les falafels", 5)
-        etapes[2] = ("Réchauffer le pain pita", 2)
-        etapes[3] = ("Garnir le pain avec les falafels", 2)
-        self.liste_recettes.append(etapes)
+        self.liste_recette.append("Faire frire les falafels", 5)
+        self.liste_recette.append("Réchauffer le pain pita", 2)
+        self.liste_recette.append("Garnir le pain avec les falafels", 2)
 
 class PizzaVege(Souper):
     def __init__(self) -> None:
         super().__init__()
     
     def recette(self):
-        etapes = {}
-        etapes[1] = ("Préparer la pâte", 3)
-        etapes[2] = ("Garnir la pizza", 2)
-        etapes[3] = ("Cuire la pizza", 8)
-        self.liste_recettes.append(etapes)
+        self.liste_recette.append("Préparer la pâte", 3)
+        self.liste_recette.append("Garnir la pizza", 2)
+        self.liste_recette.append("Cuire la pizza", 8)
 
 class Salade(Entree):
     def __init__(self) -> None:
         super().__init__()
     
     def recette(self):
-        etapes = {}
-        etapes[1] = ("Laver la salade", 1)
-        etapes[2] = ("Couper les légumes", 3)
-        etapes[3] = ("Mélanger avec la vinaigrette", 2)
-        self.liste_recettes.append(etapes)
+        self.liste_recette.append("Laver la salade", 1)
+        self.liste_recette.append("Couper les légumes", 3)
+        self.liste_recette.append("Mélanger avec la vinaigrette", 2)
 
 class Frites(Entree):
     def __init__(self) -> None:
         super().__init__()
     
     def recette(self):
-        etapes = {}
-        etapes[1] = ("Faire frire les pommes de terre", 5)
-        etapes[2] = ("Préparer la mayonnaise", 2)
-        etapes[3] = ("Assaisonner les frites", 1)
-        self.liste_recettes.append(etapes)
+        self.liste_recette.append("Faire frire les pommes de terre", 5)
+        self.liste_recette.append("Préparer la mayonnaise", 2)
+        self.liste_recette.append("Assaisonner les frites", 1)
 
 class Tartare(Entree):
     def __init__(self) -> None:
         super().__init__()
     
     def recette(self):
-        etapes = {}
-        etapes[1] = ("Couper le saumon", 2)
-        etapes[2] = ("Mélanger avec la sauce", 1)
-        etapes[3] = ("Placer dans l'assiette", 1)
-        self.liste_recettes.append(etapes)
+        self.liste_recette.append("Couper le saumon", 2)
+        self.liste_recette.append("Mélanger avec la sauce", 1)
+        self.liste_recette.append("Placer dans l'assiette", 1)
 
 class Gateau(Dessert):
     def __init__(self) -> None:
         super().__init__()
     
     def recette(self):
-        etapes = {}
-        etapes[1] = ("Couper le gâteau", 1)
-        etapes[2] = ("Couper les fruits", 2)
-        etapes[3] = ("Servir la crème glacée", 1)
-        self.liste_recettes.append(etapes)
+        self.liste_recette.append("Couper le gâteau", 1)
+        self.liste_recette.append("Couper les fruits", 2)
+        self.liste_recette.append("Servir la crème glacée", 1)
 
 class Sunday(Dessert):
     def __init__(self) -> None:
         super().__init__()
     
     def recette(self):
-        etapes = {}
-        etapes[1] = ("Servir la crème glacée", 1)
-        etapes[2] = ("Couper des fraises", 1)
-        etapes[3] = ("Ajouter le fudge", 1)
-        self.liste_recettes.append(etapes)
+        self.liste_recette.append("Servir la crème glacée", 1)
+        self.liste_recette.append("Couper des fraises", 1)
+        self.liste_recette.append("Ajouter le fudge", 1)
 
 class Brownies(Dessert):
     def __init__(self) -> None:
         super().__init__()
     
     def recette(self):
-        etapes = {}
-        etapes[1] = ("Réchauffer les brownies", 2)
-        etapes[2] = ("Servir la crème glacée", 1)
-        self.liste_recettes.append(etapes)
+        self.liste_recette.append("Réchauffer les brownies", 2)
+        self.liste_recette.append("Servir la crème glacée", 1)
 
 class Cafe(Boisson):
     def __init__(self) -> None:
         super().__init__()
     
     def recette(self):
-        etapes = {}
-        etapes[1] = ("Remplir la cafetière", 1)
-        etapes[2] = ("Laisser infuser le café", 4)
-        self.liste_recettes.append(etapes)
+        self.liste_recette.append("Remplir la cafetière", 1)
+        self.liste_recette.append("Laisser infuser le café", 4)
 
 class Limonade(Boisson):
     def __init__(self) -> None:
         super().__init__()
     
     def recette(self):
-        etapes = {}
-        etapes[1] = ("Presser les citrons", 2)
-        etapes[2] = ("Mélanger avec de l'eau et du sucre", 1)
-        self.liste_recettes.append(etapes)
+        self.liste_recette.append("Presser les citrons", 2)
+        self.liste_recette.append("Mélanger avec de l'eau et du sucre", 1)
 
 class JusPomme(Boisson):
     def __init__(self) -> None:
         super().__init__()
     
     def recette(self):
-        etapes = {}
-        etapes[1] = ("Couper les pommes", 1)
-        etapes[2] = ("Extraire le jus", 2)
-        self.liste_recettes.append(etapes)
+        self.liste_recette.append("Couper les pommes", 1)
+        self.liste_recette.append("Extraire le jus", 2)
+
+
+class Restaurant:
+    def __init__(self) -> None:
+        pass
+
+    def menu(self):
+        pass
