@@ -17,6 +17,9 @@ class Recette:
         for etape in self.etapes:
             recette_string += str(etape) + "\n"
         return recette_string
+    
+    def __add__(self, recette2):
+        pass
 
 class Restaurant:
 
@@ -32,8 +35,8 @@ class Restaurant:
         self.recettes_diner = self.liste_recettes_diner()
         self.recettes_souper = self.liste_recettes_souper()
         self.recettes_entree = self.liste_recettes_entree()
-        self.recettes_dessert = []
-        self.recettes_boisson = []
+        self.recettes_dessert = self.liste_recettes_dessert()
+        self.recettes_boisson = self.liste_recettes_boisson()
     
     def liste_recettes_dejeuner(self):
         liste_dej = []
