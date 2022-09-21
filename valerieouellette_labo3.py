@@ -3,8 +3,13 @@ from datetime import datetime
 class Repas:
     def __init__(self) -> None:
         self.liste_recette = []
-        self.recette()
         self.temps_debut = 0
+        self.recette()
+    
+    def __str__(self):
+        recette = ""
+        for etape in self.liste_recette:
+            recette += f"{etape[0]} ({etape[1]}min)" + "\n"
     
     def recette(self):
         pass
@@ -32,8 +37,19 @@ class Repas:
                 print("Choix invalide, recommencez")
 
     def __add__(self, repas2):
-        pass
-
+        new_list = []
+        for etape in self.liste_recette:
+            for etape2 in repas2.liste_recette:
+                if etape[1] > etape2[1]:
+                    new_list.append(etape2)
+                    new_list.append(etape)
+                else:
+                    new_list.append(etape)
+                    new_list.append(etape2)
+        repas = Repas()
+        repas.liste_recette = new_list
+        return repas
+                    
 
 class Dejeuner(Repas):
     def __init__(self) -> None:
@@ -231,8 +247,53 @@ class JusPomme(Boisson):
 
 
 class Restaurant:
+
+    LISTE_DEJEUNER = ["Oeufs", "Pain doré", "Crêpes"]
+    LISTE_DINER = ["Sandwich au thon", "Croquettes de poulet", "Macaronis"]
+    LISTE_SOUPER = ["Saumon", "Pita Falafel", "Pizza vege"]
+    LISTE_DESSERTS = ["Gâteau", "Sunday", "Brownies"]
+    LISTE_ENTREES = ["Salade", "Frites", "Tartare de saumon"]
+    LISTE_BOISSONS = ["Café", "Limonade", "Jus de pomme"]
+
+    HEURES_DEJEUNER = (6, 12)
+    HEURES_DINER = (11, 15)
+    HEURES_SOUPER = (15, 21)
+    HEURES_ENTREE = (6, 21)
+    HEURES_DESSERT = (11, 21)
+    HEURES_BOISSON = (6, 21)
+
     def __init__(self) -> None:
         pass
 
-    def menu(self):
-        pass
+    def affichage_menu(heure):
+        heure = heure[0]
+        menu = ""
+        if Restaurant.HEURES_DEJEUNER[0] <= heure < Restaurant.HEURES_DEJEUNER[1]:
+            menu += "\n Déjeuner: \n"
+            for repas in Restaurant.LISTE_DEJEUNER:
+                menu += repas + "\n"
+        if Restaurant.HEURES_DINER[0] <= heure < Restaurant.HEURES_DINER[1]:
+            menu += "\n Dîner: \n"
+            for repas in Restaurant.LISTE_DINER:
+                menu += repas + "\n"
+        if Restaurant.HEURES_SOUPER[0] <= heure < Restaurant.HEURES_SOUPER[1]:
+            menu += "\n Souper: \n"
+            for repas in Restaurant.LISTE_SOUPER:
+                menu += repas + "\n"
+        if Restaurant.HEURES_ENTREE[0] <= heure < Restaurant.HEURES_ENTREE[1]:
+            menu += "Entrées: \n"
+            for repas in Restaurant.LISTE_ENTREES:
+                menu += repas + "\n"
+        if Restaurant.HEURES_DESSERT[0] <= heure < Restaurant.HEURES_DESSERT[1]:
+            menu += "Desserts: \n"
+            for repas in Restaurant.LISTE_DESSERTS:
+                menu += repas + "\n"
+        if Restaurant.HEURES_BOISSON[0] <= heure < Restaurant.HEURES_BOISSON[1]:
+            menu += "Boissons: \n"
+            for repas in Restaurant.LISTE_BOISSONS:
+                menu += repas + "\n"
+        print(menu)
+
+        
+
+
