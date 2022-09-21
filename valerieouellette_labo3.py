@@ -21,18 +21,14 @@ class Repas:
 # Je dois gérer les cas où la commande est maintenant ou plus tard
 # recette temps max détermine le temps fin ou le temps début 
     def __add__(self, repas2):
-        new_list = []
-        for etape in self.liste_recette:
-            for etape2 in repas2.liste_recette:
-                if etape[1] > etape2[1]:
-                    new_list.append(etape2)
-                    new_list.append(etape)
-                else:
-                    new_list.append(etape)
-                    new_list.append(etape2)
-        repas = Repas()
-        repas.liste_recette = new_list
-        return repas
+        repas_combine = Repas()
+        etapes_max = max(len(self.liste_recette), len(repas2.liste_recette))
+        for i in range(etapes_max):
+            if self.liste_recette[i][1] > repas2.liste_recette[i][1]:
+                repas_combine.liste_recette.append(repas2.liste_recette[i])
+            else:
+                repas_combine.liste_recette.append(self.liste_recette[i])
+        return repas_combine
                     
 class Oeufs(Repas):
     def __init__(self) -> None:
@@ -355,8 +351,11 @@ class Restaurant:
         commande = commande.split("+")
         for repas in commande:
             liste_repas.append(Restaurant.creation_repas(repas))
-        for repas in liste_repas:
-            print(str(repas))
+        for i in range(len(liste_repas)):
+            print(str(liste_repas[i]))
+            if i != (len(liste_repas) - 1):
+                print(liste_repas[i] + liste_repas[i+1])
+            
                 
 
 #Continuer l'implémentation du menu
