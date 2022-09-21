@@ -18,17 +18,10 @@ class Repas:
     def recette(self):
         pass
 
-# Je dois gérer les cas où la commande est maintenant ou plus tard
-# recette temps max détermine le temps fin ou le temps début 
+#le repas avec le temps max définit le debut et fin préparation
+#placer ensuite les étapes pour finir en même temps
     def __add__(self, repas2):
-        repas_combine = Repas()
-        etapes_max = max(len(self.liste_recette), len(repas2.liste_recette))
-        for i in range(etapes_max):
-            if self.liste_recette[i][1] > repas2.liste_recette[i][1]:
-                repas_combine.liste_recette.append(repas2.liste_recette[i])
-            else:
-                repas_combine.liste_recette.append(self.liste_recette[i])
-        return repas_combine
+        pass
                     
 class Oeufs(Repas):
     def __init__(self) -> None:
