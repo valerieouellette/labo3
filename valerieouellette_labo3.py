@@ -1,7 +1,8 @@
-from datetime import datetime
+import datetime
 
 class Repas:
     def __init__(self) -> None:
+        self.nom = ""
         self.liste_recette = []
         self.temps_debut = 0
         self.temps_fin = 0
@@ -9,6 +10,7 @@ class Repas:
     
     def __str__(self):
         recette = ""
+        recette += self.nom + ": \n"
         for etape in self.liste_recette:
             recette += f"{etape[0]} ({etape[1]}min)" + "\n"
         return recette
@@ -35,6 +37,7 @@ class Repas:
 class Oeufs(Repas):
     def __init__(self) -> None:
         super().__init__()
+        self.nom = "Oeufs"
         self.temps_execution = 8
     
     def recette(self):
@@ -45,6 +48,7 @@ class Oeufs(Repas):
 class PainDore(Repas):
     def __init__(self) -> None:
         super().__init__()
+        self.nom = "Pain doré"
         self.temps_execution = 7
     
     def recette(self):
@@ -55,6 +59,7 @@ class PainDore(Repas):
 class Crepes(Repas):
     def __init__(self) -> None:
         self.__init__()
+        self.nom = "Crêpes"
         self.temps_execution = 8
     
     def recette(self):
@@ -65,6 +70,7 @@ class Crepes(Repas):
 class CroquettePoulet(Repas):
     def __init__(self) -> None:
         super().__init__()
+        self.nom = "Croquettes de poulet"
         self.temps_execution = 9
     
     def recette(self):
@@ -75,6 +81,7 @@ class CroquettePoulet(Repas):
 class SandwichThon(Repas):
     def __init__(self) -> None:
         super().__init__()
+        self.nom = "Sandwich au thon"
         self.temps_execution = 5
     
     def recette(self):
@@ -85,6 +92,7 @@ class SandwichThon(Repas):
 class Macaronis(Repas):
     def __init__(self) -> None:
         super().__init__()
+        self.nom = "Macaronis"
         self.temps_execution = 12
     
     def recette(self):
@@ -95,6 +103,7 @@ class Macaronis(Repas):
 class Saumon(Repas):
     def __init__(self) -> None:
         super().__init__()
+        self.nom = "Saumon"
         self.temps_execution = 8
     
     def recette(self):
@@ -105,6 +114,7 @@ class Saumon(Repas):
 class PitaFalafel(Repas):
     def __init__(self) -> None:
         super().__init__()
+        self.nom = "Pita Falafel"
         self.temps_execution = 9
     
     def recette(self):
@@ -115,6 +125,7 @@ class PitaFalafel(Repas):
 class PizzaVege(Repas):
     def __init__(self) -> None:
         super().__init__()
+        self.nom = "Pizza Vege"
         self.temps_execution = 13
     
     def recette(self):
@@ -125,6 +136,7 @@ class PizzaVege(Repas):
 class Salade(Repas):
     def __init__(self) -> None:
         super().__init__()
+        self.nom = "Salade"
         self.temps_execution = 6
     
     def recette(self):
@@ -135,6 +147,7 @@ class Salade(Repas):
 class Frites(Repas):
     def __init__(self) -> None:
         super().__init__()
+        self.nom = "Frites"
         self.temps_execution = 8
     
     def recette(self):
@@ -145,6 +158,7 @@ class Frites(Repas):
 class Tartare(Repas):
     def __init__(self) -> None:
         super().__init__()
+        self.nom = "Tartare"
         self.temps_execution = 4
     
     def recette(self):
@@ -155,6 +169,7 @@ class Tartare(Repas):
 class Gateau(Repas):
     def __init__(self) -> None:
         super().__init__()
+        self.nom = "Gâteau"
         self.temps_execution = 4
     
     def recette(self):
@@ -165,6 +180,7 @@ class Gateau(Repas):
 class Sunday(Repas):
     def __init__(self) -> None:
         super().__init__()
+        self.nom = "Sunday"
         self.temps_execution = 3
     
     def recette(self):
@@ -175,6 +191,7 @@ class Sunday(Repas):
 class Brownies(Repas):
     def __init__(self) -> None:
         super().__init__()
+        self.nom = "Brownies"
         self.temps_execution = 3
     
     def recette(self):
@@ -184,6 +201,7 @@ class Brownies(Repas):
 class Cafe(Repas):
     def __init__(self) -> None:
         super().__init__()
+        self.nom = "Café"
         self.temps_execution = 5
     
     def recette(self):
@@ -193,6 +211,7 @@ class Cafe(Repas):
 class Limonade(Repas):
     def __init__(self) -> None:
         super().__init__()
+        self.nom = "Limonade"
         self.temps_execution = 3
     
     def recette(self):
@@ -202,6 +221,7 @@ class Limonade(Repas):
 class JusPomme(Repas):
     def __init__(self) -> None:
         super().__init__()
+        self.nom = "Jus de pomme"
         self.temps_execution = 3
     
     def recette(self):
@@ -272,46 +292,40 @@ class Restaurant:
                 print(f"{numero}) {option}")
             choix = input("Choix: ")
             if choix == "1":
-                #Cette partie ne marche pas
-                now = now.time()
-                time = (now[0], now[1])
+                heure = datetime.datetime.now()
+                heure = (heure.hour, heure.minute)
                 prise_donnee = True
                 now = True
             elif choix == "2":
                 heure = input("Entrez heure désirée (en format 00:00): ")
                 heure = heure.split(":")
-                time = (int(heure[0]), int(heure[1]))
+                heure = (int(heure[0]), int(heure[1]))
                 prise_donnee = True
                 now = False
             else:
                 print("Choix invalide, recommencez")
-        return time, now
-    LISTE_DEJEUNER = ["Oeufs", "Pain doré", "Crêpes"]
-    LISTE_DINER = ["Sandwich au thon", "Croquettes de poulet", "Macaronis"]
-    LISTE_SOUPER = ["Saumon", "Pita Falafel", "Pizza vege"]
-    LISTE_DESSERTS = ["Gâteau", "Sunday", "Brownies"]
-    LISTE_ENTREES = ["Salade", "Frites", "Tartare de saumon"]
-    LISTE_BOISSONS = ["Café", "Limonade", "Jus de pomme"]
+        return heure, now
     
     @staticmethod
     def creation_repas(repas):
+        repas = repas.replace(" ", "")
         if repas.lower() == "oeufs":
             return Oeufs()
-        elif repas.lower() == "pain doré" or repas.lower() == "pain dore":
+        elif repas.lower() == "paindoré" or repas.lower() == "paindore":
             return PainDore()
         elif repas.lower() == "crêpes" or repas.lower() == "crepes":
             return Crepes()
-        elif repas.lower() == "sandwich au thon":
+        elif repas.lower() == "sandwichauthon":
             return SandwichThon()
-        elif repas.lower() == "croquettes de poulet":
+        elif repas.lower() == "croquettesdepoulet":
             return CroquettePoulet()
         elif repas.lower() == "macaronis":
             return Macaronis()
         elif repas.lower() == "saumon":
             return Saumon()
-        elif repas.lower() == "pita falafel":
+        elif repas.lower() == "pitafalafel":
             return PitaFalafel()
-        elif repas.lower() == "pizza vege":
+        elif repas.lower() == "pizzavege":
             return PizzaVege()
         elif repas.lower() == "gateau" or repas.lower() == "gâteau":
             return Gateau()
@@ -323,16 +337,15 @@ class Restaurant:
             return Salade
         elif repas.lower() == "frites":
             return Frites()
-        elif repas.lower() == "tartare de saumon":
+        elif repas.lower() == "tartaredesaumon":
             return Tartare()
         elif repas.lower() == "cafe" or repas.lower() == "café":
             return Cafe()
         elif repas.lower() == "limonade":
             return Limonade()
-        elif repas.lower() == "jus de pomme":
+        elif repas.lower() == "jusdepomme":
             return JusPomme()
 
-    
     @staticmethod
     def menu_utilisateur():
         liste_repas = []
@@ -342,10 +355,11 @@ class Restaurant:
         commande = commande.split("+")
         for repas in commande:
             liste_repas.append(Restaurant.creation_repas(repas))
+        for repas in liste_repas:
+            print(str(repas))
                 
 
 #Continuer l'implémentation du menu
-#Créer les objets repas selon les entrées
 #Additionner les repas
 
 
