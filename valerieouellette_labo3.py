@@ -286,13 +286,64 @@ class Restaurant:
             else:
                 print("Choix invalide, recommencez")
         return time, now
+    LISTE_DEJEUNER = ["Oeufs", "Pain doré", "Crêpes"]
+    LISTE_DINER = ["Sandwich au thon", "Croquettes de poulet", "Macaronis"]
+    LISTE_SOUPER = ["Saumon", "Pita Falafel", "Pizza vege"]
+    LISTE_DESSERTS = ["Gâteau", "Sunday", "Brownies"]
+    LISTE_ENTREES = ["Salade", "Frites", "Tartare de saumon"]
+    LISTE_BOISSONS = ["Café", "Limonade", "Jus de pomme"]
+    
+    @staticmethod
+    def creation_repas(repas):
+        if repas.lower() == "oeufs":
+            return Oeufs()
+        elif repas.lower() == "pain doré" or repas.lower() == "pain dore":
+            return PainDore()
+        elif repas.lower() == "crêpes" or repas.lower() == "crepes":
+            return Crepes()
+        elif repas.lower() == "sandwich au thon":
+            return SandwichThon()
+        elif repas.lower() == "croquettes de poulet":
+            return CroquettePoulet()
+        elif repas.lower() == "macaronis":
+            return Macaronis()
+        elif repas.lower() == "saumon":
+            return Saumon()
+        elif repas.lower() == "pita falafel":
+            return PitaFalafel()
+        elif repas.lower() == "pizza vege":
+            return PizzaVege()
+        elif repas.lower() == "gateau" or repas.lower() == "gâteau":
+            return Gateau()
+        elif repas.lower() == "sunday":
+            return Sunday()
+        elif repas.lower() == "brownies":
+            return Brownies()
+        elif repas.lower() == "salade":
+            return Salade
+        elif repas.lower() == "frites":
+            return Frites()
+        elif repas.lower() == "tartare de saumon":
+            return Tartare()
+        elif repas.lower() == "cafe" or repas.lower() == "café":
+            return Cafe()
+        elif repas.lower() == "limonade":
+            return Limonade()
+        elif repas.lower() == "jus de pomme":
+            return JusPomme()
+
     
     @staticmethod
     def menu_utilisateur():
+        liste_repas = []
         time, now = Restaurant.get_time()
         Restaurant.affichage_menu(time)
         commande = input("Entrez votre commande: ")
         commande = commande.split("+")
+        for repas in commande:
+            liste_repas.append(Restaurant.creation_repas(repas))
+                
+
 #Continuer l'implémentation du menu
 #Créer les objets repas selon les entrées
 #Additionner les repas
