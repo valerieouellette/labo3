@@ -16,6 +16,8 @@ class Repas:
     def recette(self):
         pass
 
+# Je dois gérer les cas où la commande est maintenant ou plus tard
+# recette temps max détermine le temps fin ou le temps début 
     def __add__(self, repas2):
         new_list = []
         for etape in self.liste_recette:
@@ -33,6 +35,7 @@ class Repas:
 class Oeufs(Repas):
     def __init__(self) -> None:
         super().__init__()
+        self.temps_execution = 8
     
     def recette(self):
         self.liste_recette.append(("Faire cuire les oeufs", 4))
@@ -42,6 +45,7 @@ class Oeufs(Repas):
 class PainDore(Repas):
     def __init__(self) -> None:
         super().__init__()
+        self.temps_execution = 7
     
     def recette(self):
         self.liste_recette.append(("Tremper le pain dans le mélange", 1))
@@ -51,6 +55,7 @@ class PainDore(Repas):
 class Crepes(Repas):
     def __init__(self) -> None:
         self.__init__()
+        self.temps_execution = 8
     
     def recette(self):
         self.liste_recette.append(("Battre le mélange", 1))
@@ -60,6 +65,7 @@ class Crepes(Repas):
 class CroquettePoulet(Repas):
     def __init__(self) -> None:
         super().__init__()
+        self.temps_execution = 9
     
     def recette(self):
         self.liste_recette.append(("Mettre les morceaux de poulet dans la chapelure", 2))
@@ -69,6 +75,7 @@ class CroquettePoulet(Repas):
 class SandwichThon(Repas):
     def __init__(self) -> None:
         super().__init__()
+        self.temps_execution = 5
     
     def recette(self):
         self.liste_recette.append(("Mettre le pain au four", 3))
@@ -78,6 +85,7 @@ class SandwichThon(Repas):
 class Macaronis(Repas):
     def __init__(self) -> None:
         super().__init__()
+        self.temps_execution = 12
     
     def recette(self):
         self.liste_recette.append(("Faire bouillir l'eau", 3))
@@ -87,6 +95,7 @@ class Macaronis(Repas):
 class Saumon(Repas):
     def __init__(self) -> None:
         super().__init__()
+        self.temps_execution = 8
     
     def recette(self):
         self.liste_recette.append(("Faire chauffer l'huile dans la poèle", 1))
@@ -96,6 +105,7 @@ class Saumon(Repas):
 class PitaFalafel(Repas):
     def __init__(self) -> None:
         super().__init__()
+        self.temps_execution = 9
     
     def recette(self):
         self.liste_recette.append(("Faire frire les falafels", 5))
@@ -105,6 +115,7 @@ class PitaFalafel(Repas):
 class PizzaVege(Repas):
     def __init__(self) -> None:
         super().__init__()
+        self.temps_execution = 13
     
     def recette(self):
         self.liste_recette.append(("Préparer la pâte", 3))
@@ -114,6 +125,7 @@ class PizzaVege(Repas):
 class Salade(Repas):
     def __init__(self) -> None:
         super().__init__()
+        self.temps_execution = 6
     
     def recette(self):
         self.liste_recette.append(("Laver la salade", 1))
@@ -123,6 +135,7 @@ class Salade(Repas):
 class Frites(Repas):
     def __init__(self) -> None:
         super().__init__()
+        self.temps_execution = 8
     
     def recette(self):
         self.liste_recette.append(("Faire frire les pommes de terre", 5))
@@ -132,6 +145,7 @@ class Frites(Repas):
 class Tartare(Repas):
     def __init__(self) -> None:
         super().__init__()
+        self.temps_execution = 4
     
     def recette(self):
         self.liste_recette.append(("Couper le saumon", 2))
@@ -141,6 +155,7 @@ class Tartare(Repas):
 class Gateau(Repas):
     def __init__(self) -> None:
         super().__init__()
+        self.temps_execution = 4
     
     def recette(self):
         self.liste_recette.append(("Couper le gâteau", 1))
@@ -150,6 +165,7 @@ class Gateau(Repas):
 class Sunday(Repas):
     def __init__(self) -> None:
         super().__init__()
+        self.temps_execution = 3
     
     def recette(self):
         self.liste_recette.append(("Servir la crème glacée", 1))
@@ -159,6 +175,7 @@ class Sunday(Repas):
 class Brownies(Repas):
     def __init__(self) -> None:
         super().__init__()
+        self.temps_execution = 3
     
     def recette(self):
         self.liste_recette.append(("Réchauffer les brownies", 2))
@@ -167,6 +184,7 @@ class Brownies(Repas):
 class Cafe(Repas):
     def __init__(self) -> None:
         super().__init__()
+        self.temps_execution = 5
     
     def recette(self):
         self.liste_recette.append(("Remplir la cafetière", 1))
@@ -175,6 +193,7 @@ class Cafe(Repas):
 class Limonade(Repas):
     def __init__(self) -> None:
         super().__init__()
+        self.temps_execution = 3
     
     def recette(self):
         self.liste_recette.append(("Presser les citrons", 2))
@@ -183,6 +202,7 @@ class Limonade(Repas):
 class JusPomme(Repas):
     def __init__(self) -> None:
         super().__init__()
+        self.temps_execution = 3
     
     def recette(self):
         self.liste_recette.append(("Couper les pommes", 1))
@@ -252,6 +272,7 @@ class Restaurant:
                 print(f"{numero}) {option}")
             choix = input("Choix: ")
             if choix == "1":
+                #Cette partie ne marche pas
                 now = now.time()
                 time = (now[0], now[1])
                 prise_donnee = True
@@ -270,6 +291,11 @@ class Restaurant:
     def menu_utilisateur():
         time, now = Restaurant.get_time()
         Restaurant.affichage_menu(time)
+        commande = input("Entrez votre commande: ")
+        commande = commande.split("+")
+#Continuer l'implémentation du menu
+#Créer les objets repas selon les entrées
+#Additionner les repas
 
 
 Restaurant.menu_utilisateur()
