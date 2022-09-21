@@ -1,9 +1,37 @@
+from datetime import datetime
+
 class Repas:
     def __init__(self) -> None:
         self.liste_recette = []
         self.recette()
+        self.temps_debut = 0
     
     def recette(self):
+        pass
+    
+    def get_time(self):
+        prise_donnee = False
+        while not prise_donnee:
+            print("Voulez-vous la commmande pour:")
+            options = {}
+            options[1] = "Maintenant"
+            options[2] = "Une heure particulière"
+            for numero, option in options.items():
+                print(f"{numero}) {option}")
+            choix = input("Choix: ")
+            if choix == "1":
+                now = now.time()
+                self.temps_debut = (now[0], now[1])
+                prise_donnee = True
+            elif choix == "2":
+                heure = input("Entrez heure désirée (en format 00:00): ")
+                heure = heure.split(":")
+                self.temps_debut = (heure[0], heure[1])
+                prise_donnee = True
+            else:
+                print("Choix invalide, recommencez")
+
+    def __add__(self, repas2):
         pass
 
 
