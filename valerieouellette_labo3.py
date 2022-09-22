@@ -45,11 +45,7 @@ class Repas:
         for etape in liste_recette_combine_formate:
             recette_combine_string += f"{etape[0]} ==> {etape[1][0]} ({etape[1][1]}min) \n"
 
-        print(recette_combine_string)
-
-
-
-
+        return recette_combine_string
             
 class Oeufs(Repas):
     def __init__(self) -> None:

@@ -7,6 +7,7 @@ class Repas:
         self.now = False
         self.temps_debut = "00:00"
         self.temps_fin = "00:00"
+        self.temps_execution = 0
         self.recette()
     
     def __str__(self):
@@ -21,7 +22,7 @@ class Repas:
 
 #le repas avec le temps max définit le debut et fin préparation
 #placer ensuite les étapes pour finir en même temps
-    def __add__(self):
+    def __add__(self, repas2):
         temps_execution_max = max(self.temps_execution, repas2.temps_execution)
         if self.now:
             self.temps_fin = self.temps_debut + timedelta(hours=0, minutes=temps_execution_max)
@@ -48,12 +49,18 @@ class Repas:
             liste_recette_combine_formate.append((etape[0].strftime("%H:%M"), etape[1]))
             liste_recette_new_obj.append(etape[1])
 
-        # Affichage
+        #Affichage
         recette_combine_string = ""
         for etape in liste_recette_combine_formate:
             recette_combine_string += f"{etape[0]} ==> {etape[1][0]} ({etape[1][1]}min) \n"
+        
         new_obj_repas = Repas()
         new_obj_repas.liste_recette = liste_recette_new_obj
+        new_obj_repas.temps_execution = temps_execution_max
+        if self.now:
+            new_obj_repas.temps_debut = self.temps_debut
+        else:
+            new_obj_repas.temps_fin = self.temps_fin
 
         return recette_combine_string, new_obj_repas
 
@@ -389,15 +396,12 @@ class Restaurant:
                     repas_obj.temps_fin = datetime.strptime(heure, '%H:%M')
             for i in range(len(liste_repas)):
                 print(str(liste_repas[i]))
-            
-                '''
                 if i < (len(liste_repas)-1):
-                    somme_recette = liste_repas[i] + liste_repas[i+1]
-                    recette_combine_string, new_obj_repas = somme_recette
+                    recette_combine_string, new_obj_repas = liste_repas[i] + liste_repas[i+1]
                     liste_repas[i+1] = new_obj_repas
                 else:
                     print(recette_combine_string)
-                '''
+
             
             
                 
