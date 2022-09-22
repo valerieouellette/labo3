@@ -13,7 +13,7 @@ class Repas:
         recette = ""
         recette += self.nom + ": \n"
         for etape in self.liste_recette:
-            recette += f"{etape[0]} ({etape[1]}min)" + "\n"
+            recette += f"{etape[0]} ({etape[1]}min) \n"
         return recette
     
     def recette(self):
@@ -36,12 +36,16 @@ class Repas:
         for etape in repas2.liste_recette:
             dico_temps[temps] = etape
             temps += timedelta(hours=0, minutes=etape[1])
-        dico_temps[temps] = ("Les plats sont prêts.")
+        dico_temps[temps] = ("Les plats sont prêts.", 0)
         liste_recette_combine = sorted(dico_temps.items(), key=lambda x: x[0])
+        liste_recette_combine_formate = []
         for etape in liste_recette_combine:
-            etape.replace(etape,(etape[0].strftime("%H:%M"), etape[1]))
-        #liste_recette_combine = [etape.replace('4', '5') for etape in liste_recette_combine]
-        print(liste_recette_combine)
+            liste_recette_combine_formate.append((etape[0].strftime("%H:%M"), etape[1]))
+        recette_combine_string = ""
+        for etape in liste_recette_combine_formate:
+            recette_combine_string += f"{etape[0]} ==> {etape[1][0]} ({etape[1][1]}min) \n"
+
+        print(recette_combine_string)
 
 
 
