@@ -20,8 +20,6 @@ class Repas:
     def recette(self):
         pass
 
-#le repas avec le temps max définit le debut et fin préparation
-#placer ensuite les étapes pour finir en même temps
     def __add__(self, repas2):
         temps_execution_max = max(self.temps_execution, repas2.temps_execution)
         if self.now:
@@ -48,19 +46,23 @@ class Repas:
         for etape in liste_recette_combine:
             liste_recette_combine_formate.append((etape[0].strftime("%H:%M"), etape[1]))
             liste_recette_new_obj.append(etape[1])
+        liste_recette_new_obj.pop()
 
         #Affichage
         recette_combine_string = ""
         for etape in liste_recette_combine_formate:
             recette_combine_string += f"{etape[0]} ==> {etape[1][0]} ({etape[1][1]}min) \n"
         
+        # objet repas résultat
         new_obj_repas = Repas()
         new_obj_repas.liste_recette = liste_recette_new_obj
         new_obj_repas.temps_execution = temps_execution_max
-        if self.now:
-            new_obj_repas.temps_debut = self.temps_debut
-        else:
-            new_obj_repas.temps_fin = self.temps_fin
+        new_obj_repas.temps_fin = self.temps_fin
+        #if self.now:
+            #new_obj_repas.temps_debut = self.temps_debut
+            #new_obj_repas.now = True
+        #else:
+            #new_obj_repas.temps_fin = self.temps_fin
 
         return recette_combine_string, new_obj_repas
 
@@ -396,6 +398,7 @@ class Restaurant:
                     repas_obj.temps_fin = datetime.strptime(heure, '%H:%M')
             for i in range(len(liste_repas)):
                 print(str(liste_repas[i]))
+            for i in range(len(liste_repas)):
                 if i < (len(liste_repas)-1):
                     recette_combine_string, new_obj_repas = liste_repas[i] + liste_repas[i+1]
                     liste_repas[i+1] = new_obj_repas
