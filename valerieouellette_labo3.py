@@ -4,8 +4,8 @@ class Repas:
     def __init__(self) -> None:
         self.nom = ""
         self.liste_recette = []
-        self.temps_debut = 0
-        self.temps_fin = 0
+        self.now = False
+        self.temps = (0,0)
         self.recette()
     
     def __str__(self):
@@ -21,7 +21,8 @@ class Repas:
 #le repas avec le temps max définit le debut et fin préparation
 #placer ensuite les étapes pour finir en même temps
     def __add__(self, repas2):
-        pass
+        if self.now:
+            temps_debut = self.temps
                     
 class Oeufs(Repas):
     def __init__(self) -> None:
@@ -343,9 +344,14 @@ class Restaurant:
         commande = input("Entrez votre commande: ")
         commande = commande.split("+")
         for repas in commande:
-            liste_repas.append(Restaurant.creation_repas(repas))
+            repas_obj = Restaurant.creation_repas(repas)
+            liste_repas.append(repas_obj)
+            if now:
+                repas_obj.now = True
+            repas_obj.temps = time
         for i in range(len(liste_repas)):
             print(str(liste_repas[i]))
+            #partie sur l'addition
             if i != (len(liste_repas) - 1):
                 print(liste_repas[i] + liste_repas[i+1])
             
