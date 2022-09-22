@@ -22,10 +22,9 @@ class Repas:
 #le repas avec le temps max définit le debut et fin préparation
 #placer ensuite les étapes pour finir en même temps
     def __add__(self, repas2):
-        temps_execution_max = datetime.time(minute=max(self.temps_execution, repas2.temps_execution))
+        temps_execution_max = max(self.temps_execution, repas2.temps_execution)
         if self.now:
-            self.temps_fin = self.temps_debut + temps_execution_max
-            print(self.temps_debut, self.temps_fin)
+            self.temps_fin = datetime.strptime(self.temps_debut, format) + datetime.strptime(s1, format)
 
             
 class Oeufs(Repas):
@@ -354,9 +353,9 @@ class Restaurant:
                 liste_repas.append(repas_obj)
                 if now:
                     repas_obj.now = True
-                    repas_obj.temps_debut = time
+                    repas_obj.temps_debut = heure
                 else:
-                    repas_obj.temps_fin = time
+                    repas_obj.temps_fin = heure
             for i in range(len(liste_repas)):
                 print(str(liste_repas[i]))
         #print(liste_repas[0] + liste_repas[1])
