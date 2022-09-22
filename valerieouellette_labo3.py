@@ -1,4 +1,4 @@
-import datetime
+from datetime import datetime, timedelta
 
 class Repas:
     def __init__(self) -> None:
@@ -24,7 +24,27 @@ class Repas:
     def __add__(self, repas2):
         temps_execution_max = max(self.temps_execution, repas2.temps_execution)
         if self.now:
-            self.temps_fin = datetime.strptime(self.temps_debut, format) + datetime.strptime(s1, format)
+            self.temps_fin = self.temps_debut + timedelta(hours=0, minutes=temps_execution_max)
+        self.temps_debut = self.temps_fin - timedelta(hours=0, minutes=self.temps_execution)
+        repas2.temps_debut = self.temps_fin - timedelta(hours=0, minutes=repas2.temps_execution)
+        dico_temps = {}
+        temps = self.temps_debut
+        for etape in self.liste_recette:
+            dico_temps[temps] = etape
+            temps += timedelta(hours=0, minutes=etape[1])
+        temps = repas2.temps_debut
+        for etape in repas2.liste_recette:
+            dico_temps[temps] = etape
+            temps += timedelta(hours=0, minutes=etape[1])
+        dico_temps[temps] = ("Les plats sont prêts.")
+        liste_recette_combine = sorted(dico_temps.items(), key=lambda x: x[0])
+        for etape in liste_recette_combine:
+            etape.replace(etape,(etape[0].strftime("%H:%M"), etape[1]))
+        #liste_recette_combine = [etape.replace('4', '5') for etape in liste_recette_combine]
+        print(liste_recette_combine)
+
+
+
 
             
 class Oeufs(Repas):
@@ -288,7 +308,7 @@ class Restaurant:
                 print(f"{numero}) {option}")
             choix = input("Choix: ")
             if choix == "1":
-                heure = datetime.datetime.now()
+                heure = datetime.now()
                 heure = f"{heure.hour}:{heure.minute}"
                 prise_donnee = True
                 now = True
@@ -353,12 +373,12 @@ class Restaurant:
                 liste_repas.append(repas_obj)
                 if now:
                     repas_obj.now = True
-                    repas_obj.temps_debut = heure
+                    repas_obj.temps_debut = datetime.strptime(heure, '%H:%M')
                 else:
-                    repas_obj.temps_fin = heure
+                    repas_obj.temps_fin = datetime.strptime(heure, '%H:%M')
             for i in range(len(liste_repas)):
                 print(str(liste_repas[i]))
-        #print(liste_repas[0] + liste_repas[1])
+        print(liste_repas[0] + liste_repas[1])
             
                 
 
