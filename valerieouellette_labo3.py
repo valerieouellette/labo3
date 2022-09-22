@@ -19,14 +19,13 @@ class Repas:
     def recette(self):
         pass
 
-#le repas avec le temps max définit le debut et fin préparation
-#placer ensuite les étapes pour finir en même temps
     def __add__(self, repas2):
         temps_execution_max = max(self.temps_execution, repas2.temps_execution)
         if self.now:
             self.temps_fin = self.temps_debut + timedelta(hours=0, minutes=temps_execution_max)
         self.temps_debut = self.temps_fin - timedelta(hours=0, minutes=self.temps_execution)
         repas2.temps_debut = self.temps_fin - timedelta(hours=0, minutes=repas2.temps_execution)
+
         dico_temps = {}
         temps = self.temps_debut
         for etape in self.liste_recette:
@@ -37,10 +36,12 @@ class Repas:
             dico_temps[temps] = etape
             temps += timedelta(hours=0, minutes=etape[1])
         dico_temps[temps] = ("Les plats sont prêts.", 0)
+
         liste_recette_combine = sorted(dico_temps.items(), key=lambda x: x[0])
         liste_recette_combine_formate = []
         for etape in liste_recette_combine:
             liste_recette_combine_formate.append((etape[0].strftime("%H:%M"), etape[1]))
+            
         recette_combine_string = ""
         for etape in liste_recette_combine_formate:
             recette_combine_string += f"{etape[0]} ==> {etape[1][0]} ({etape[1][1]}min) \n"
