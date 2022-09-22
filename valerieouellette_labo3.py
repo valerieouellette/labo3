@@ -5,7 +5,8 @@ class Repas:
         self.nom = ""
         self.liste_recette = []
         self.now = False
-        self.temps = (0,0)
+        self.temps_debut = "00:00"
+        self.temps_fin = "00:00"
         self.recette()
     
     def __str__(self):
@@ -21,19 +22,11 @@ class Repas:
 #le repas avec le temps max définit le debut et fin préparation
 #placer ensuite les étapes pour finir en même temps
     def __add__(self, repas2):
-        temps_execution_max = max(self.temps_execution, repas2.temps_execution)
+        temps_execution_max = datetime.time(minute=max(self.temps_execution, repas2.temps_execution))
         if self.now:
-            temps_debut = self.temps
-            temps_fin = (temps_debut[0], (temps_debut[1]+ temps_execution_max))
-        else:
-            temps_fin = datetime.datetime(2022,9,22,self.temps[0],self.temps[0])
-            temps_debut = temps_fin - temps_execution_max
-        repas_combiné_liste = []
-        for i in range(0, len(self.liste_recette), -1):
-            temps = temps_fin[1] - self.liste_recette[1]
-            repas_combiné_liste.append((f"{temps[0]}:{temps[1]}", self.liste_recette[i]))
-            temps_fin = temps
-        return repas_combiné_liste
+            self.temps_fin = self.temps_debut + temps_execution_max
+            print(self.temps_debut, self.temps_fin)
+
             
 class Oeufs(Repas):
     def __init__(self) -> None:
@@ -239,47 +232,50 @@ class Restaurant:
     LISTE_ENTREES = ["Salade", "Frites", "Tartare de saumon"]
     LISTE_BOISSONS = ["Café", "Limonade", "Jus de pomme"]
 
-    HEURES_DEJEUNER = (6, 12)
-    HEURES_DINER = (11, 15)
-    HEURES_SOUPER = (15, 21)
-    HEURES_ENTREE = (6, 21)
-    HEURES_DESSERT = (11, 21)
-    HEURES_BOISSON = (6, 21)
+    HEURES_DEJEUNER = ("06:00", "12:00")
+    HEURES_DINER = ("11:00", "15:00")
+    HEURES_SOUPER = ("15:00", "21:00")
+    HEURES_ENTREE = ("06:00", "21:00")
+    HEURES_DESSERT = ("11:00", "21:00")
+    HEURES_BOISSON = ("06:00", "21:00")
 
     def __init__(self) -> None:
         pass
     
     @staticmethod
     def affichage_menu(heure):
-        heure = heure[0]
         menu = ""
-        if Restaurant.HEURES_DEJEUNER[0] <= heure < Restaurant.HEURES_DEJEUNER[1]:
-            menu += "\n Déjeuner: \n"
-            for repas in Restaurant.LISTE_DEJEUNER:
-                menu += repas + "\n"
-        if Restaurant.HEURES_DINER[0] <= heure < Restaurant.HEURES_DINER[1]:
-            menu += "\n Dîner: \n"
-            for repas in Restaurant.LISTE_DINER:
-                menu += repas + "\n"
-        if Restaurant.HEURES_SOUPER[0] <= heure < Restaurant.HEURES_SOUPER[1]:
-            menu += "\n Souper: \n"
-            for repas in Restaurant.LISTE_SOUPER:
-                menu += repas + "\n"
-        if Restaurant.HEURES_ENTREE[0] <= heure < Restaurant.HEURES_ENTREE[1]:
-            menu += "\n Entrées: \n"
-            for repas in Restaurant.LISTE_ENTREES:
-                menu += repas + "\n"
-        if Restaurant.HEURES_DESSERT[0] <= heure < Restaurant.HEURES_DESSERT[1]:
-            menu += "\n Desserts: \n"
-            for repas in Restaurant.LISTE_DESSERTS:
-                menu += repas + "\n"
-        if Restaurant.HEURES_BOISSON[0] <= heure < Restaurant.HEURES_BOISSON[1]:
-            menu += "\n Boissons: \n"
-            for repas in Restaurant.LISTE_BOISSONS:
-                menu += repas + "\n"
+        if "06:00" <= heure < "21:00":
+            heures_ouverture = True
+            if Restaurant.HEURES_DEJEUNER[0] <= heure < Restaurant.HEURES_DEJEUNER[1]:
+                menu += "\n Déjeuner: \n"
+                for repas in Restaurant.LISTE_DEJEUNER:
+                    menu += repas + "\n"
+            if Restaurant.HEURES_DINER[0] <= heure < Restaurant.HEURES_DINER[1]:
+                menu += "\n Dîner: \n"
+                for repas in Restaurant.LISTE_DINER:
+                    menu += repas + "\n"
+            if Restaurant.HEURES_SOUPER[0] <= heure < Restaurant.HEURES_SOUPER[1]:
+                menu += "\n Souper: \n"
+                for repas in Restaurant.LISTE_SOUPER:
+                    menu += repas + "\n"
+            if Restaurant.HEURES_ENTREE[0] <= heure < Restaurant.HEURES_ENTREE[1]:
+                menu += "\n Entrées: \n"
+                for repas in Restaurant.LISTE_ENTREES:
+                    menu += repas + "\n"
+            if Restaurant.HEURES_DESSERT[0] <= heure < Restaurant.HEURES_DESSERT[1]:
+                menu += "\n Desserts: \n"
+                for repas in Restaurant.LISTE_DESSERTS:
+                    menu += repas + "\n"
+            if Restaurant.HEURES_BOISSON[0] <= heure < Restaurant.HEURES_BOISSON[1]:
+                menu += "\n Boissons: \n"
+                for repas in Restaurant.LISTE_BOISSONS:
+                    menu += repas + "\n"
         else:
-            menu += "Nous sommes fermés. Revenez demain!"
+            heures_ouverture = False
+            menu += "Désolé, l'horaire est en dehors de nos heures d'ouverture. À demain!"
         print(menu)
+        return heures_ouverture
     
     @staticmethod
     def get_time():
@@ -294,13 +290,11 @@ class Restaurant:
             choix = input("Choix: ")
             if choix == "1":
                 heure = datetime.datetime.now()
-                heure = (heure.hour, heure.minute)
+                heure = f"{heure.hour}:{heure.minute}"
                 prise_donnee = True
                 now = True
             elif choix == "2":
                 heure = input("Entrez heure désirée (en format 00:00): ")
-                heure = heure.split(":")
-                heure = (int(heure[0]), int(heure[1]))
                 prise_donnee = True
                 now = False
             else:
@@ -350,19 +344,22 @@ class Restaurant:
     @staticmethod
     def menu_utilisateur():
         liste_repas = []
-        time, now = Restaurant.get_time()
-        Restaurant.affichage_menu(time)
-        commande = input("Entrez votre commande: ")
-        commande = commande.split("+")
-        for repas in commande:
-            repas_obj = Restaurant.creation_repas(repas)
-            liste_repas.append(repas_obj)
-            if now:
-                repas_obj.now = True
-            repas_obj.temps = time
-        for i in range(len(liste_repas)):
-            print(str(liste_repas[i]))
-        print(liste_repas[0] + liste_repas[1])
+        heure, now = Restaurant.get_time()
+        heure_ouverture = Restaurant.affichage_menu(heure)
+        if heure_ouverture:
+            commande = input("Entrez votre commande: ")
+            commande = commande.split("+")
+            for repas in commande:
+                repas_obj = Restaurant.creation_repas(repas)
+                liste_repas.append(repas_obj)
+                if now:
+                    repas_obj.now = True
+                    repas_obj.temps_debut = time
+                else:
+                    repas_obj.temps_fin = time
+            for i in range(len(liste_repas)):
+                print(str(liste_repas[i]))
+        #print(liste_repas[0] + liste_repas[1])
             
                 
 
