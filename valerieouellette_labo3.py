@@ -386,9 +386,6 @@ class Restaurant:
             
                 
 
-#Continuer l'implémentation du menu
-#Additionner les repas
-
 
 Restaurant.menu_utilisateur()
         
