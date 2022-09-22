@@ -23,19 +23,17 @@ class Repas:
     def __add__(self, repas2):
         temps_execution_max = max(self.temps_execution, repas2.temps_execution)
         if self.now:
-            temps_debut = datetime(0,0,0,self.temps[0], self.temps[1])
-            temps_fin = temps_debut + temps_execution_max
+            temps_debut = self.temps
+            temps_fin = (temps_debut[0], (temps_debut[1]+ temps_execution_max))
         else:
-            temps_fin = datetime(0,0,0,self.temps[0],self.temps[0])
+            temps_fin = datetime.datetime(2022,9,22,self.temps[0],self.temps[0])
             temps_debut = temps_fin - temps_execution_max
         repas_combiné_liste = []
         for i in range(0, len(self.liste_recette), -1):
-            temps = temps_fin - self.liste_recette[1]
-            repas_combiné_liste.append((f"{temps.hour}:{temps.min}", self.liste_recette[i]))
+            temps = temps_fin[1] - self.liste_recette[1]
+            repas_combiné_liste.append((f"{temps[0]}:{temps[1]}", self.liste_recette[i]))
             temps_fin = temps
-        repas_combine = Repas()
-        repas_combine.liste_recette = temps_liste
-        return repas_combine
+        return repas_combiné_liste
             
 class Oeufs(Repas):
     def __init__(self) -> None:
@@ -337,7 +335,7 @@ class Restaurant:
         elif repas.lower() == "brownies":
             return Brownies()
         elif repas.lower() == "salade":
-            return Salade
+            return Salade()
         elif repas.lower() == "frites":
             return Frites()
         elif repas.lower() == "tartaredesaumon":
@@ -364,9 +362,7 @@ class Restaurant:
             repas_obj.temps = time
         for i in range(len(liste_repas)):
             print(str(liste_repas[i]))
-            #partie sur l'addition
-            if i != (len(liste_repas) - 1):
-                print(liste_repas[i] + liste_repas[i+1])
+        print(liste_repas[0] + liste_repas[1])
             
                 
 
