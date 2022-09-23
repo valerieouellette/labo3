@@ -20,31 +20,36 @@ class Repas:
         pass
 
     def __add__(self, repas2):
+        # Identification heure fin et debut pour chaque repas
         temps_execution_max = max(self.temps_execution, repas2.temps_execution)
         if self.now:
             self.temps_fin = self.temps_debut + timedelta(hours=0, minutes=temps_execution_max)
         self.temps_debut = self.temps_fin - timedelta(hours=0, minutes=self.temps_execution)
         repas2.temps_debut = self.temps_fin - timedelta(hours=0, minutes=repas2.temps_execution)
 
-        dico_temps = {}
+        # Trouve temps(heure) pour chaque étape selon le temps d'exécution
+        liste_recette_combine = []
         temps = self.temps_debut
         for etape in self.liste_recette:
-            dico_temps[temps] = etape
+            liste_recette_combine.append((temps, etape[0], self.nom))
             temps += timedelta(hours=0, minutes=etape[1])
         temps = repas2.temps_debut
         for etape in repas2.liste_recette:
-            dico_temps[temps] = etape
+            liste_recette_combine.append((temps, etape[0], repas2.nom))
             temps += timedelta(hours=0, minutes=etape[1])
-        dico_temps[temps] = ("Les plats sont prêts.", 0)
+        liste_recette_combine.append((temps, "Les plats sont prêts.", f"{self.nom} + {repas2.nom}"))
 
-        liste_recette_combine = sorted(dico_temps.items(), key=lambda x: x[0])
-        liste_recette_combine_formate = []
-        for etape in liste_recette_combine:
-            liste_recette_combine_formate.append((etape[0].strftime("%H:%M"), etape[1]))
-            
+        # Place liste recette combiné en ordre de temps
+        # Formate temps en format 00:00
+        liste_combine_sorted = sorted(liste_recette_combine, key=lambda x: x[0])
+        liste_combine_formate = []
+        for etape in liste_combine_sorted:
+            liste_combine_formate.append((etape[0].strftime("%H:%M"), etape[1], etape[2]))
+        
+        # Affichage 
         recette_combine_string = ""
-        for etape in liste_recette_combine_formate:
-            recette_combine_string += f"{etape[0]} ==> {etape[1][0]} ({etape[1][1]}min) \n"
+        for etape in liste_combine_formate:
+            recette_combine_string += f"{etape[0]} ==> {etape[1]} ({etape[2]}) \n"
 
         return recette_combine_string
             
@@ -72,7 +77,7 @@ class PainDore(Repas):
         
 class Crepes(Repas):
     def __init__(self) -> None:
-        self.__init__()
+        super().__init__()
         self.nom = "Crêpes"
         self.temps_execution = 8
     
