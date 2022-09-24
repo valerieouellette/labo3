@@ -384,7 +384,7 @@ class Restaurant:
                     repas_obj.temps_fin = datetime.strptime(heure, '%H:%M')
             for i in range(len(liste_repas)):
                 print(str(liste_repas[i]))
-        print(liste_repas[0] + liste_repas[1])
+            print(liste_repas[0] + liste_repas[1])
             
                 
 
