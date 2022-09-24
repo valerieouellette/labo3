@@ -7,6 +7,7 @@ class Repas:
         self.now = False
         self.temps_debut = "00:00"
         self.temps_fin = "00:00"
+        self.temps_execution = 0
         self.recette()
     
     def __str__(self):
