@@ -27,9 +27,12 @@ class Repas:
             if repas.temps_execution > temps_execution_max:
                 temps_execution_max = repas.temps_execution
         if self.now:
+            # temps_debut ici = temps présent(now)
             self.temps_fin = self.temps_debut + timedelta(hours=0, minutes=temps_execution_max)
             for repas in liste_repas:
                 repas.temps_fin = repas.temps_debut + timedelta(hours=0, minutes=temps_execution_max)
+        # temps_fin commun à tous les repas, if not now: temps_fin = temps entré par utilisateur
+        # détermine temps_debut chaque repas selon temps_execution chacun
         self.temps_debut = self.temps_fin - timedelta(hours=0, minutes=self.temps_execution)
         for repas in liste_repas:
             repas.temps_debut = repas.temps_fin - timedelta(hours=0, minutes=repas.temps_execution)
@@ -45,8 +48,10 @@ class Repas:
                 liste_recette_combine.append((temps, etape[0], repas.nom))
                 temps += timedelta(hours=0, minutes=etape[1])
 
+        #liste trié selon le temps
         liste_combine_sorted = sorted(liste_recette_combine, key=lambda x: x[0])
 
+        #remplace le datetime pour format 00:00
         liste_combine_formate = []
         for etape in liste_combine_sorted:
             liste_combine_formate.append((etape[0].strftime("%H:%M"), etape[1], etape[2]))
@@ -337,7 +342,7 @@ class Restaurant:
             choix = input("Choix: ")
             if choix == "1":
                 heure = datetime.now()
-                heure = f"{heure.hour}:{heure.minute}"
+                heure = heure.strftime("%H:%M")
                 prise_donnee = True
                 now = True
             elif choix == "2":
